@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\_">
+      <UniqueIdentifier>{74213892-f6ce-41bf-805f-5c6c382e9254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mpq">
+      <UniqueIdentifier>{32b68904-375f-4bc8-b330-f00d09feb04a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\_">
+      <UniqueIdentifier>{c6a7c4ab-0d94-4811-9322-60c3590a3f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Mpq">
+      <UniqueIdentifier>{a8fa0ae9-7072-4769-9de2-82d173f2b056}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="_\AssemblyInfo.cpp">
+      <Filter>Source Files\_</Filter>
+    </ClCompile>
+    <ClCompile Include="Mpq\Archive.cpp">
+      <Filter>Source Files\Mpq</Filter>
+    </ClCompile>
+    <ClCompile Include="Mpq\FileInfo.cpp">
+      <Filter>Source Files\Mpq</Filter>
+    </ClCompile>
+    <ClCompile Include="Mpq\FileStream.cpp">
+      <Filter>Source Files\Mpq</Filter>
+    </ClCompile>
+    <ClCompile Include="Mpq\StringHandle.cpp">
+      <Filter>Source Files\Mpq</Filter>
+    </ClCompile>
+    <ClCompile Include="Mpq\TemporaryFile.cpp">
+      <Filter>Source Files\Mpq</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="_\Constants.h">
+      <Filter>Header Files\_</Filter>
+    </ClInclude>
+    <ClInclude Include="_\Include.h">
+      <Filter>Header Files\_</Filter>
+    </ClInclude>
+    <ClInclude Include="Mpq\Archive.h">
+      <Filter>Header Files\Mpq</Filter>
+    </ClInclude>
+    <ClInclude Include="Mpq\ArchiveFormat.h">
+      <Filter>Header Files\Mpq</Filter>
+    </ClInclude>
+    <ClInclude Include="Mpq\Compression.h">
+      <Filter>Header Files\Mpq</Filter>
+    </ClInclude>
+    <ClInclude Include="Mpq\Encryption.h">
+      <Filter>Header Files\Mpq</Filter>
+    </ClInclude>
+    <ClInclude Include="Mpq\FileInfo.h">
+      <Filter>Header Files\Mpq</Filter>
+    </ClInclude>
+    <ClInclude Include="Mpq\FileStream.h">
+      <Filter>Header Files\Mpq</Filter>
+    </ClInclude>
+    <ClInclude Include="Mpq\Quality.h">
+      <Filter>Header Files\Mpq</Filter>
+    </ClInclude>
+    <ClInclude Include="Mpq\StringHandle.h">
+      <Filter>Header Files\Mpq</Filter>
+    </ClInclude>
+    <ClInclude Include="Mpq\TemporaryFile.h">
+      <Filter>Header Files\Mpq</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

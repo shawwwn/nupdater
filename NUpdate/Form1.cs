@@ -111,8 +111,10 @@ namespace NUpdate
             log("[Update Finish]");
             DialogResult result = MessageBox.Show("Update Finished!\nDo you wish to exit?", "Finish", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
+            {
                 Application.DoEvents();
                 this.Close();
+            }
         }
 
         private void exitButton_Click(object sender, EventArgs e)
