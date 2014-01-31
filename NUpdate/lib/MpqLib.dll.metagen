@@ -1,0 +1,156 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly MpqLib, Version=1.0.*, Culture=固定语言(固定国家/地区): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly Microsoft.VisualC, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Class MpqLib.CConstants: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Int32 InvalidId = -1 : Public, Static, Literal, HasDefault
+    Int32 InvalidIndex = -1 : Public, Static, Literal, HasDefault
+Class MpqLib.Mpq.CFileInfo: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(System.String, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 CompressedSize 'get ' : 
+    Int32 Size 'get ' : 
+    System.String FileName 'get ' : 
+  Methods:
+    get_FileName(): PrivateScope, Public, HideBySig, SpecialName
+    get_Size(): PrivateScope, Public, HideBySig, SpecialName
+    get_CompressedSize(): PrivateScope, Public, HideBySig, SpecialName
+Class MpqLib.Mpq.CArchive: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(System.String, Boolean, MpqLib.Mpq.EArchiveFormat, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean, MpqLib.Mpq.EArchiveFormat): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Boolean IsDisposed 'get ' : 
+    System.Object Tag 'get set' : 
+    System.String FileName 'get ' : 
+    Void* Handle 'get ' : 
+    UInt32 Locale 'get set' IsLong : 
+    Int32 FileCount 'get ' : 
+  Methods:
+    Close(): PrivateScope, Public, HideBySig
+    Flush(): PrivateScope, Public, HideBySig
+    Compact(): PrivateScope, Public, HideBySig
+    FileExists(String): PrivateScope, Public, HideBySig
+    ImportFile(String, Byte[], ECompression, EEncryption): PrivateScope, Public, HideBySig
+    ImportFile(String, Byte[], ECompression): PrivateScope, Public, HideBySig
+    ImportFile(String, Byte[]): PrivateScope, Public, HideBySig
+    ImportFile(String, String, ECompression, EEncryption): PrivateScope, Public, HideBySig
+    ImportFile(String, String, ECompression): PrivateScope, Public, HideBySig
+    ImportFile(String, String): PrivateScope, Public, HideBySig
+    ImportWaveFile(String, Byte[], EQuality, ECompression, EEncryption): PrivateScope, Public, HideBySig
+    ImportWaveFile(String, Byte[], EQuality, ECompression): PrivateScope, Public, HideBySig
+    ImportWaveFile(String, Byte[], EQuality): PrivateScope, Public, HideBySig
+    ImportWaveFile(String, String, EQuality, ECompression, EEncryption): PrivateScope, Public, HideBySig
+    ImportWaveFile(String, String, EQuality, ECompression): PrivateScope, Public, HideBySig
+    ImportWaveFile(String, String, EQuality): PrivateScope, Public, HideBySig
+    ImportListFile(Byte[]): PrivateScope, Public, HideBySig
+    ImportListFile(String): PrivateScope, Public, HideBySig
+    ExportFile(String, Byte[], Int32): PrivateScope, Public, HideBySig
+    ExportFile(String, Byte[]): PrivateScope, Public, HideBySig
+    ExportFile(String, String): PrivateScope, Public, HideBySig
+    RenameFile(String, String): PrivateScope, Public, HideBySig
+    RemoveFile(String): PrivateScope, Public, HideBySig
+    FindFiles(String, String, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    FindFiles(String, String): PrivateScope, Public, HideBySig
+    FindFiles(String, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    FindFiles(String): PrivateScope, Public, HideBySig
+    ToString(): PrivateScope, Public, Final, Virtual, HideBySig
+    get_FileCount(): PrivateScope, Public, HideBySig, SpecialName
+    get_Locale(): PrivateScope, Public, HideBySig, SpecialName
+    set_Locale(UInt32 IsLong): PrivateScope, Public, HideBySig, SpecialName
+    get_Handle(): PrivateScope, Public, HideBySig, SpecialName
+    get_FileName(): PrivateScope, Public, HideBySig, SpecialName
+    get_Tag(): PrivateScope, Public, HideBySig, SpecialName
+    set_Tag(Object): PrivateScope, Public, HideBySig, SpecialName
+    get_IsDisposed(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Struct MpqLib.Mpq.EQuality: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MpqLib.Mpq.EQuality Medium = 1 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.EQuality High = 2 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.EQuality Low = 0 : Public, Static, Literal, HasDefault
+Struct MpqLib.Mpq.ECompression: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MpqLib.Mpq.ECompression WaveStereo = 7 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.ECompression WaveMono = 6 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.ECompression BZip2 = 5 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.ECompression PKWareDCL = 4 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.ECompression ZLib = 3 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.ECompression Huffman = 2 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.ECompression Implode = 1 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.ECompression None = 0 : Public, Static, Literal, HasDefault
+Struct MpqLib.Mpq.EEncryption: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MpqLib.Mpq.EEncryption EncryptedWithFixedSeed = 2 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.EEncryption Encrypted = 1 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.EEncryption None = 0 : Public, Static, Literal, HasDefault
+Struct MpqLib.Mpq.EArchiveFormat: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MpqLib.Mpq.EArchiveFormat Version4 = 3 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.EArchiveFormat Version3 = 2 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.EArchiveFormat Version2 = 1 : Public, Static, Literal, HasDefault
+    MpqLib.Mpq.EArchiveFormat Version1 = 0 : Public, Static, Literal, HasDefault
+Class MpqLib.Mpq.CFileStream: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.IO.Stream
+    Void .ctor(MpqLib.Mpq.CArchive, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean IsDisposed 'get ' : 
+    System.Object Tag 'get set' : 
+    MpqLib.Mpq.CArchive Archive 'get ' : 
+    System.String FileName 'get ' : 
+    Void* Handle 'get ' : 
+    UInt32 Locale 'get set' IsLong : 
+    Int64 CompressedLength 'get ' : 
+    Int64 Position 'get set' : 
+    Int64 Length 'get ' : 
+    Boolean CanWrite 'get ' : 
+    Boolean CanRead 'get ' : 
+    Boolean CanSeek 'get ' : 
+  Methods:
+    Close(): PrivateScope, Public, Final, Virtual, HideBySig
+    Read(Byte[], Int32, Int32): PrivateScope, Public, Final, Virtual, HideBySig
+    Read(Int32, Int32): PrivateScope, Public, HideBySig
+    Read(Int32): PrivateScope, Public, HideBySig
+    Write(Byte[], Int32, Int32): PrivateScope, Public, Final, Virtual, HideBySig
+    Seek(Int64, SeekOrigin): PrivateScope, Public, Final, Virtual, HideBySig
+    SetLength(Int64): PrivateScope, Public, Final, Virtual, HideBySig
+    Flush(): PrivateScope, Public, Final, Virtual, HideBySig
+    ToString(): PrivateScope, Public, Final, Virtual, HideBySig
+    get_CanSeek(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_CanRead(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_CanWrite(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Length(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Position(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Position(Int64): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_CompressedLength(): PrivateScope, Public, HideBySig, SpecialName
+    get_Locale(): PrivateScope, Public, HideBySig, SpecialName
+    set_Locale(UInt32 IsLong): PrivateScope, Public, HideBySig, SpecialName
+    get_Handle(): PrivateScope, Public, HideBySig, SpecialName
+    get_FileName(): PrivateScope, Public, HideBySig, SpecialName
+    get_Archive(): PrivateScope, Public, HideBySig, SpecialName
+    get_Tag(): PrivateScope, Public, HideBySig, SpecialName
+    set_Tag(Object): PrivateScope, Public, HideBySig, SpecialName
+    get_IsDisposed(): PrivateScope, Public, HideBySig, SpecialName
