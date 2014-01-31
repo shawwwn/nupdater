@@ -19,41 +19,32 @@ namespace NUpdate
         public const string DEST_VERSION = "beta_3";
         public string gamePath;
 
-        // progress bar control funcs
+        // progress bar setting funcs
         public void setProgressBarMax(int steps) { progressBar1.Maximum = steps; }
         public void setProgressBarVal(int value) { progressBar1.Value = value; }
         public int getProgressBarVal() { return progressBar1.Value; }
         public void incProgressBar() { progressBar1.Value++; }
 
-        public void log(string msg)
-        {
-            detailInfoBar.AppendText(msg + Environment.NewLine);
-        }
+        // logging funcs
+        public void log(string msg) { detailInfoBar.AppendText(msg + Environment.NewLine); }
+        public void setStatus(string msg) { statusBar.Text = msg; }
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            // set windows title
+            // set windows props
             this.Text += " [" + SOURCE_VERSION + " -> " + DEST_VERSION + "]";
+            statusBar.Text = "Initializing...";
 
             // set window height
             this.Height = 170;
 
             //check game
-            string checkMsg = "Game Check - ";
+            string checkMsg = "[Game Check] - ";
             string gamePath = Utils.getGamePath();
             if (gamePath == "")
             {
@@ -66,13 +57,13 @@ namespace NUpdate
                 log(checkMsg + "Success!");
             // check version
             string version = Utils.getGameVersion(gamePath);
-            checkMsg = "Version Check - ";
+            checkMsg = "[Version Check] - ";
             if (version != SOURCE_VERSION)
             {
-                log(checkMsg + "Error - source version: " + SOURCE_VERSION + ", local version: " + version + ".");
+                log(checkMsg + "Error - source version: " + SOURCE_VERSION + ", target version: " + version + ".");
                 statusBar.Text = "Error: Wrong Version!";
                 updateButton.Enabled = false;
-                MessageBox.Show("This patch is for [" + SOURCE_VERSION + "], but your local version is [" + version + "].");
+                MessageBox.Show("This patch is for Nirvana (" + SOURCE_VERSION + "), but your local version is (" + version + ").", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else
@@ -83,16 +74,6 @@ namespace NUpdate
             }
 
             // patch start
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void detailButton_Click(object sender, EventArgs e)
@@ -111,12 +92,32 @@ namespace NUpdate
 
         private void updateButton_Click(object sender, EventArgs e)
         {
-            log("Start Patch...");
-            Updater patcher = new Updater(this, "update.mpq", "Nirvana.mpq");
-            patcher.Delete(patcher.deletelist);
+            log("[Update Start]");
+            statusBar.Text = "Patching...";
+            detailInfoBar.Text = "";    // reset log text
+            updateButton.Enabled = false;
+            exitButton.Enabled = false;
+            detailButton.Enabled = false;
+            Updater patcher = new Updater(this, "update.mpq", "Nirvana.mpq", true);
+            patcher.DeleteAll();
             patcher.AddAll();
             patcher.Flush();
+            patcher.Compact();
             patcher.Close();
+            statusBar.Text = "Finish!";
+            updateButton.Enabled = true;
+            exitButton.Enabled = true;
+            detailButton.Enabled = true;
+            log("[Update Finish]");
+            DialogResult result = MessageBox.Show("Update Finished!\nDo you wish to exit?", "Finish", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+                Application.DoEvents();
+                this.Close();
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

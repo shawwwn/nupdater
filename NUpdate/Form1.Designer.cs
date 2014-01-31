@@ -53,7 +53,6 @@
             this.statusBar.TabIndex = 2;
             this.statusBar.Text = "Status";
             this.statusBar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.statusBar.Click += new System.EventHandler(this.label1_Click);
             // 
             // detailInfoBar
             // 
@@ -95,6 +94,7 @@
             this.exitButton.TabIndex = 6;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // Form1
             // 
@@ -108,9 +108,14 @@
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.progressBar1);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Nirvana Update";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Nirvana Patcher";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
