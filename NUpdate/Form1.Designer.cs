@@ -85,6 +85,7 @@
             this.updateButton.TabIndex = 5;
             this.updateButton.Text = "Patch";
             this.updateButton.UseVisualStyleBackColor = true;
+            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
             // exitButton
             // 

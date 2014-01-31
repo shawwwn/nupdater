@@ -19,9 +19,15 @@ namespace NUpdate
         public const string DEST_VERSION = "beta_3";
         public string gamePath;
 
-        private void log(string msg)
+        // progress bar control funcs
+        public void setProgressBarMax(int steps) { progressBar1.Maximum = steps; }
+        public void setProgressBarVal(int value) { progressBar1.Value = value; }
+        public int getProgressBarVal() { return progressBar1.Value; }
+        public void incProgressBar() { progressBar1.Value++; }
+
+        public void log(string msg)
         {
-            detailInfoBar.Text += msg + Environment.NewLine;
+            detailInfoBar.AppendText(msg + Environment.NewLine);
         }
 
         public Form1()
@@ -101,6 +107,16 @@ namespace NUpdate
                 this.Height = 280;
                 detailButton.Text = "Detail ˄";
             }
+        }
+
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+            log("Start Patch...");
+            Updater patcher = new Updater(this, "update.mpq", "Nirvana.mpq");
+            patcher.Delete(patcher.deletelist);
+            patcher.AddAll();
+            patcher.Flush();
+            patcher.Close();
         }
     }
 }
