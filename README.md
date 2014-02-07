@@ -7,5 +7,6 @@ A .NET 4.0 project
 ================
 ###MpqLib
 
-This project is forked from https://github.com/Hernrup/MpqLib, with minor path fixed.
-MpqLib is originally based on magos MpqLib.
+This project is forked from https://github.com/Hernrup/MpqLib, and integrated with NUpdater.
+
+*MpqLib is originally based on magos MpqLib and upgraded to support stormLib 8.02 by Hernrup.*
