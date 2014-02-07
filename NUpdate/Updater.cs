@@ -9,26 +9,32 @@ namespace NUpdate
 {
     class Updater
     {
-        private string[] DEFAULT_IGNORE_LIST = new string[] { "(listfile)", "(attributes)", "(delete)" };
+        private string[] DEFAULT_IGNORE_LIST = new string[] { "(listfile)", "(attributes)", "(delete)", "(export)", "(maindll)" };
         private Form1 _parent;
         private int steps;
         private bool doLogging;
+        private string nirPath;
 
         public string[] deletelist;
+        public string[] exportlist;
         public MpqLib.Mpq.CArchive PatchMPQ;
         public MpqLib.Mpq.CArchive TargetMPQ;
 
-        public Updater(Form1 parent, string patchMpqPath, string targetMpqPatch, bool logging = true)
+        public Updater(Form1 parent, string patchMpqPath, string targetMpqPath, string gamePath, bool logging = true)
         {
             _parent = parent;
             doLogging = logging;
+            nirPath = gamePath;
+
             PatchMPQ = new MpqLib.Mpq.CArchive(patchMpqPath);
-            TargetMPQ = new MpqLib.Mpq.CArchive(targetMpqPatch);
+            TargetMPQ = new MpqLib.Mpq.CArchive(targetMpqPath);
 
             // initialize progressBar
             steps = PatchMPQ.FileCount;
             deletelist = readDeleteList();
             steps += deletelist.Length;
+            exportlist = readExportList();
+            steps += exportlist.Length;
             _parent.setProgressBarMax(steps);
         }
 
@@ -39,8 +45,16 @@ namespace NUpdate
 
         public void Close()
         {
-            if (!TargetMPQ.IsDisposed) TargetMPQ.Close();
-            if (!PatchMPQ.IsDisposed) PatchMPQ.Close();
+            if (!TargetMPQ.IsDisposed)
+            {
+                TargetMPQ.Close();
+                TargetMPQ.Dispose();
+            }
+            if (!PatchMPQ.IsDisposed)
+            {
+                PatchMPQ.Close();
+                PatchMPQ.Dispose();
+            }
         }
         
         // log to the front window
@@ -62,6 +76,8 @@ namespace NUpdate
 
         public string[] readDeleteList()
         {
+            if (!PatchMPQ.FileExists("(delete)"))
+                return new string[] { };
             var H_deletelist = new MpqLib.Mpq.CFileStream(PatchMPQ, "(delete)");
             var deletelist_raw = new byte[H_deletelist.Length];
             deletelist_raw = H_deletelist.Read((int)H_deletelist.Length);
@@ -97,6 +113,8 @@ namespace NUpdate
         // Deletes all files from the deletelist
         public void DeleteAll()
         {
+            if (exportlist.Length == 0)
+                return;
             setStatus("Deleting Files...");
             log("[Start Deleting Files]");
             Delete(deletelist);
@@ -186,5 +204,58 @@ namespace NUpdate
             }
             log("[Finish Adding Files]");
         }
+
+        public string[] readExportList()
+        {
+            if (!PatchMPQ.FileExists("(export)"))
+                return new string[] {};
+            var H_exportlist = new MpqLib.Mpq.CFileStream(PatchMPQ, "(export)");
+            var exportlist_raw = new byte[H_exportlist.Length];
+            exportlist_raw = H_exportlist.Read((int)H_exportlist.Length);
+            H_exportlist.Close();
+            string[] list = Encoding.ASCII.GetString(exportlist_raw).Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            return list;
+        }
+
+        public void Export(string line)
+        {
+            string seperateChar = "->";
+            int pos = line.IndexOf(seperateChar);
+            string srcPath = line.Substring(0, pos).Trim();
+            string destPath = line.Substring(pos + seperateChar.Length).Trim();
+            try
+            {
+                setStatus(destPath);
+                PatchMPQ.ExportFile(srcPath, nirPath + destPath);
+                log("Exported - " + line);
+            }
+            catch (Exception e)
+            {
+                log("Error when exporting file from mpq - " + e.Message);
+            }
+            _parent.incProgressBar();
+        }
+
+        public void Export(string[] filelist)
+        {
+            for (int i = 0; i < filelist.Length; i++)
+            {
+                Export(filelist[i]);
+            }
+
+        }
+
+        // Deletes all files from the deletelist
+        public void ExportAll()
+        {
+            if (exportlist.Length == 0)
+                return;
+            setStatus("Exporting Files...");
+            log("[Start Exporting Files]");
+            Export(exportlist);
+            log("[Finish Exporting Files]");
+        }
+
+
     }
 }

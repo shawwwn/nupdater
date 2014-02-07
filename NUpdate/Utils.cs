@@ -39,6 +39,7 @@ namespace NUpdate
             if (pRegKey!=null)
             {
                 string regPath = pRegKey.GetValue("InstallPath").ToString();
+                regPath = resolvePath(regPath);
                 if (isNirvanaExist(regPath))
                     return regPath;
             }
