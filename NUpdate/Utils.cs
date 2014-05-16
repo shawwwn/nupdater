@@ -28,9 +28,9 @@ namespace NUpdate
         static public string getGamePath(string startPath="\\")
         {
             // Search current directory
-            if (startPath == "\\" || startPath == "." || startPath == "" || startPath == null)
-                startPath = Application.StartupPath;
+            if (startPath == "\\" || startPath == "." || startPath == "" || startPath == null) startPath = Application.StartupPath;
             startPath = resolvePath(startPath);
+            if (!File.Exists("Nirvana.mpq")) startPath = startPath.Substring(0, startPath.Substring(0, startPath.Length - 1).LastIndexOf('\\') + 1);
             if (isNirvanaExist(startPath))
                 return startPath;
 
@@ -55,11 +55,14 @@ namespace NUpdate
             string version = "";
             try
             {
-                var H_versionFile = new MpqLib.Mpq.CFileStream(Archive, "(version)");
-                var version_raw = new byte[H_versionFile.Length];
-                version_raw = H_versionFile.Read((int)H_versionFile.Length);
-                H_versionFile.Close();
-                version = Encoding.ASCII.GetString(version_raw);
+                if (Archive.FileExists("(version)"))
+                {
+                    var H_versionFile = new MpqLib.Mpq.CFileStream(Archive, "(version)");
+                    var version_raw = new byte[H_versionFile.Length];
+                    version_raw = H_versionFile.Read((int)H_versionFile.Length);
+                    H_versionFile.Close();
+                    version = Encoding.ASCII.GetString(version_raw);
+                }
             }
             catch
             {

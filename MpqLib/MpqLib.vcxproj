@@ -110,6 +110,7 @@
     <ClCompile Include="Mpq\TemporaryFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="_\Constants.h" />
     <ClInclude Include="_\Include.h" />
     <ClInclude Include="Mpq\Archive.h" />
@@ -121,6 +122,14 @@
     <ClInclude Include="Mpq\Quality.h" />
     <ClInclude Include="Mpq\StringHandle.h" />
     <ClInclude Include="Mpq\TemporaryFile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MpqLib.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Updater\MpqLib.dll" />
+    <None Include="dll1.bin" />
+    <None Include="dll2.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

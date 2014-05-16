@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NUpdate.Properties {
+namespace clean.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NUpdate.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NUpdate.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("clean.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,41 @@ namespace NUpdate.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        internal static byte[] _listfile_ {
+            get {
+                object obj = ResourceManager.GetObject("_listfile_", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] MpqLib {
+            get {
+                object obj = ResourceManager.GetObject("MpqLib", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] NUpdate {
+            get {
+                object obj = ResourceManager.GetObject("NUpdate", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] SFmpq {
+            get {
+                object obj = ResourceManager.GetObject("SFmpq", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] update {
+            get {
+                object obj = ResourceManager.GetObject("update", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

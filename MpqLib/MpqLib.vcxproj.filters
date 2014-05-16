@@ -76,5 +76,16 @@
     <ClInclude Include="Mpq\TemporaryFile.h">
       <Filter>Header Files\Mpq</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MpqLib.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dll1.bin" />
+    <None Include="dll2.bin" />
+    <None Include="..\..\Updater\MpqLib.dll" />
   </ItemGroup>
 </Project>

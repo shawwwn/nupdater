@@ -66,6 +66,7 @@
             this.detailInfoBar.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.detailInfoBar.Size = new System.Drawing.Size(413, 75);
             this.detailInfoBar.TabIndex = 3;
+            this.detailInfoBar.ForeColor = System.Drawing.Color.White;
             // 
             // detailButton
             // 
@@ -73,7 +74,8 @@
             this.detailButton.Name = "detailButton";
             this.detailButton.Size = new System.Drawing.Size(91, 30);
             this.detailButton.TabIndex = 4;
-            this.detailButton.Text = "Detail ˅";
+            if (!this.is_zhCN) this.detailButton.Text = "Detail ˅";
+            else this.detailButton.Text = "详细进程 ˅";
             this.detailButton.UseVisualStyleBackColor = true;
             this.detailButton.Click += new System.EventHandler(this.detailButton_Click);
             // 
@@ -83,7 +85,8 @@
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(90, 30);
             this.updateButton.TabIndex = 5;
-            this.updateButton.Text = "Patch";
+            if (!this.is_zhCN) this.updateButton.Text = "Patch";
+            else this.updateButton.Text = "开始补丁";
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
@@ -93,7 +96,8 @@
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(91, 30);
             this.exitButton.TabIndex = 6;
-            this.exitButton.Text = "Exit";
+            if (!this.is_zhCN) this.exitButton.Text = "Exit";
+            else this.exitButton.Text = "退出";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
@@ -116,7 +120,8 @@
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Nirvana Patcher";
+            if (!is_zhCN) this.Text = "Nirvana Patcher";
+            else this.Text = "Nirvana 升级补丁";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

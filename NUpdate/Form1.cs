@@ -15,9 +15,12 @@ namespace NUpdate
 {
     public partial class Form1 : Form
     {
-        public const string SOURCE_VERSION = "beta_2|beta";
-        public const string DEST_VERSION = "beta_3";
-        public const string PATCH_MPQ_NAME = "beta_3.mpq";
+        // language bool
+        private bool is_zhCN;
+
+        public string SOURCE_VERSION;
+        public string DEST_VERSION;
+        public const string PATCH_MPQ_NAME = "update.mpq";
         public string appPath;
         public string gamePath;
         public string mpqPath;
@@ -34,51 +37,87 @@ namespace NUpdate
 
         public Form1()
         {
+            is_zhCN = System.Threading.Thread.CurrentThread.CurrentCulture.Name == "zh-CN";
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             appPath = Application.StartupPath + '\\';
-            // set windows props
-            this.Text += " [" + SOURCE_VERSION + " -> " + DEST_VERSION + "]";
             statusBar.Text = "Initializing...";
+            gamePath = Utils.getGamePath();
+            mpqPath = gamePath + "Nirvana.mpq";
+
+            // set version variables
+            Updater patcher = new Updater(null, PATCH_MPQ_NAME, mpqPath, gamePath, true);
+            SOURCE_VERSION = patcher.GetSourceVersion();
+            DEST_VERSION = patcher.GetDestVersion();
+            patcher.Close();
+
+            // set windows props
+            //this.Text += " [" + SOURCE_VERSION + " -> " + DEST_VERSION + "]";
 
             // set window height
             this.Height = 170;
 
             //check game
             string checkMsg = "[Game Check] - ";
-            gamePath = Utils.getGamePath();
             if (gamePath == "")
             {
                 log(checkMsg + "Error - nirvana not found.");
-                statusBar.Text = "Error: Nirvana Not Found!"; ;
+                if (!is_zhCN)
+                {
+                    statusBar.Text = "Error: Nirvana Not Found!";
+                }
+                else
+                {
+                    statusBar.Text = "错误: 找不到Nirvana!";
+                }
                 updateButton.Enabled = false;
                 return;
             }
             else
                 log(checkMsg + "Success!");
+
             // check version
-            string version = Utils.getGameVersion(gamePath);
-            if (version.Trim() == "")
-                version = "beta";
             checkMsg = "[Version Check] - ";
-            string[] srcVersions=SOURCE_VERSION.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
-            //if (version != SOURCE_VERSION)
-            if (!srcVersions.Contains(version))
+            string version = Utils.getGameVersion(gamePath);
+            //if (version.Trim() == "") version = "beta";
+            //string[] srcVersions=SOURCE_VERSION.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
+            if (version != SOURCE_VERSION)
+            //if (!srcVersions.Contains(version))
             {
                 log(checkMsg + "Error - source version: " + SOURCE_VERSION + ", target version: " + version + ".");
-                statusBar.Text = "Error: Wrong Version!";
+                if (!is_zhCN)
+                {
+                    statusBar.Text = "Error: Wrong Version!";
+                }
+                else
+                {
+                    statusBar.Text = "错误: 该补丁不支持当前版本!";
+                }
                 updateButton.Enabled = false;
-                MessageBox.Show("This patch is for Nirvana (" + SOURCE_VERSION + "), but your local version is (" + version + ").", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!is_zhCN)
+                {
+                    MessageBox.Show("This patch is for Nirvana (" + SOURCE_VERSION + "), but your local version is (" + version + ").", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("该补丁需要 Nirvana (" + SOURCE_VERSION + ") 版本, 您当前的版本为 (" + version + ").", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
                 return;
             }
             else
             {
                 log(checkMsg + "Success!");
-                statusBar.Text = "Ready to Patch!";
-                mpqPath = gamePath + "Nirvana.mpq";
+                if (!is_zhCN)
+                {
+                    statusBar.Text = "Ready to Patch!";
+                }
+                else
+                {
+                    statusBar.Text = "补丁准备就绪!";
+                }
                 log("Ready to Patch - " + gamePath);
             }
 
@@ -90,12 +129,26 @@ namespace NUpdate
             if (this.Height == 280)
             {
                 this.Height = 170;
-                detailButton.Text = "Detail ˅";
+                if (!is_zhCN)
+                {
+                    detailButton.Text = "Detail ˅";
+                }
+                else
+                {
+                    detailButton.Text = "详细进程 ˅";
+                }
             }
             else
             {
                 this.Height = 280;
-                detailButton.Text = "Detail ˄";
+                if (!is_zhCN)
+                {
+                    detailButton.Text = "Detail ˄";
+                }
+                else
+                {
+                    detailButton.Text = "详细进程 ˄";
+                }
             }
         }
 
@@ -109,22 +162,33 @@ namespace NUpdate
             detailButton.Enabled = false;
             Updater patcher = new Updater(this, PATCH_MPQ_NAME, mpqPath, gamePath, true);
             patcher.DeleteAll();
-            patcher.AddAll();
             patcher.ExportAll();
+            patcher.AddAll();
             patcher.Flush();
             patcher.Compact();
-            //patcher.Close();
-            statusBar.Text = "Finish!";
+            patcher.Close();
+            patcher.EncryptMpq();
+            if (!is_zhCN) statusBar.Text = "Finish!";
+            else statusBar.Text = "完成!";
             updateButton.Enabled = true;
             exitButton.Enabled = true;
             detailButton.Enabled = true;
             log("[Update Finish]");
             updateButton.Enabled = false;
-            DialogResult result = MessageBox.Show("Update Finished!\nDo you wish to exit?", "Finish", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            DialogResult result;
+            if (!is_zhCN)
+            {
+                result = MessageBox.Show("Update Finished!\nDo you wish to exit?", "Finish", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }
+            else
+            {
+                result = MessageBox.Show("更新完成!是否退出?", "完成", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }
             if (result == DialogResult.OK)
             {
                 Application.DoEvents();
                 this.Close();
+                this.Dispose();
             }
         }
 
@@ -132,6 +196,7 @@ namespace NUpdate
         {
             Application.DoEvents();
             this.Close();
+            this.Dispose();
         }
     }
 }
